@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="app_name">SunTime</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_sights_map">Достопримечательности</string>
+    <string name="title_activity_sights_list">SightsListActivity</string>
+    <string name="title_activity_sights_grid">SightsGridActivity</string>
+    <string name="title_activity_sights_map_google">SightsMapGoogleActivity</string>
+
+</resources>
