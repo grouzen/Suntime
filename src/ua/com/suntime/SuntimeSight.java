@@ -12,7 +12,9 @@ import android.util.Log;
 public class SuntimeSight {
 	
 	private int id;
-	private GeoPoint coords;
+	//private GeoPoint coords;
+	private double lat;
+	private double lng;
 	private String title;
 	private String city;
 	private String descriptionShort;
@@ -25,7 +27,9 @@ public class SuntimeSight {
 	
 	public SuntimeSight(JSONObject json) throws JSONException {
 		id = json.getInt("id");
-		coords = new GeoPoint((int) (json.getDouble("lat") * 1E6), (int) (json.getDouble("lng") * 1E6));
+		//coords = new GeoPoint((int) (json.getDouble("lat") * 1E6), (int) (json.getDouble("lng") * 1E6));
+		lat = json.getDouble("lat");
+		lng = json.getDouble("lng");
 		city = json.getString("city");
 		descriptionShort = json.getString("description_s");
 		//descriptionFull = json.getString("description_b"); Temporarily unavailable
@@ -40,13 +44,25 @@ public class SuntimeSight {
 		return id;
 	}
 	
+	public double getLat() {
+		return lat;
+	}
+	
+	public double getLng() {
+		return lng;
+	}
+	
+	public String getDescriptionShort() {
+		return descriptionShort;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return "{ id: " + ((Integer) id).toString() +
-				", lat: " + ((Integer) coords.getLatitudeE6()).toString() +
-				", lng: " + ((Integer) coords.getLongitudeE6()).toString() +
+				", lat: " + ((Double) lat).toString() +
+				", lng: " + ((Double) lng).toString() +
 				", rating: " + ((Integer) rating).toString() +
 				" }";
 	}
-	
 }

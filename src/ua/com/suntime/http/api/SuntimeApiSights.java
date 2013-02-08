@@ -21,6 +21,7 @@ public class SuntimeApiSights extends SuntimeApi {
 		
 	}
 	
+	/*
 	private JSONArray parse(HttpResponse response) throws JSONException {
 		if(response != null) {
 			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
@@ -47,6 +48,7 @@ public class SuntimeApiSights extends SuntimeApi {
 		
 		return null;
 	}
+	*/
 	
 	public JSONArray read() throws JSONException {
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();

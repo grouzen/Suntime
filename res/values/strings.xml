@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <string name="app_name">SunTime</string>
@@ -7,5 +8,6 @@
     <string name="title_activity_sights_list">SightsListActivity</string>
     <string name="title_activity_sights_grid">SightsGridActivity</string>
     <string name="title_activity_sights_map_google">SightsMapGoogleActivity</string>
+    <string name="title_activity_sights_map_google_v2">Достопримечательности Крыма</string>
 
 </resources>
