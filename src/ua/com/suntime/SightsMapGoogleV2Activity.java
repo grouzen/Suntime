@@ -1,17 +1,14 @@
 package ua.com.suntime;
 
-import java.util.ArrayList;
-
-import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
 
-import ua.com.suntime.http.api.SuntimeApiSights;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
+
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -29,21 +26,28 @@ public class SightsMapGoogleV2Activity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_sights_map_google_v2);
-		setupMapIfNeeded();
+		setupMapIfNeeded(savedInstanceState);
 	}
 
-	protected void onResume() {
+	protected void onResume(Bundle savedInstanceState) {
 		super.onResume();
-		setupMapIfNeeded();
+		setupMapIfNeeded(savedInstanceState);
 	}
 	
-	private void setupMapIfNeeded() {
+	private void setupMapIfNeeded(Bundle savedInstanceState) {
 		if(gMap == null) {
 			gMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
 			
 			if(gMap != null) {
-				Log.i(TAG, "Map setup success!");
-				new GetSuntimeSightsTask().execute(
+				if (savedInstanceState == null) {
+			        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(45.15, 34.4));
+			        CameraUpdate zoom = CameraUpdateFactory.zoomTo((float) 8.3);
+
+			        gMap.moveCamera(center);
+			        gMap.animateCamera(zoom);
+				}
+				
+				new SuntimeMapGoogleV2Worker().execute(
 		        		new BasicNameValuePair("order", "rating_desc"),
 		        		new BasicNameValuePair("limit", "0,10"));
 			}
@@ -57,32 +61,23 @@ public class SightsMapGoogleV2Activity extends FragmentActivity {
 		return true;
 	}
 
-	private class GetSuntimeSightsTask extends AsyncTask<NameValuePair, Void, SuntimeSightsCollection> {
-    	
-    	@Override
-    	protected SuntimeSightsCollection doInBackground(NameValuePair... params) {
+	public SuntimeSightsCollection getSights() {
+		return sights;
+	}
 
-            try {
-            	ArrayList<NameValuePair> readParams = new ArrayList<NameValuePair>();
-            	
-            	for(NameValuePair p : params) {
-            		readParams.add(p);
-            	}
-            	
-    			sights = new SuntimeSightsCollection(((SuntimeApiSights) new SuntimeApiSights()).read(readParams));
-    				
-    			return sights;
-    		} catch (JSONException e) {
-    			e.printStackTrace();
-    			return null;
-    		}	
-    	}
+	public void setSights(SuntimeSightsCollection sights) {
+		this.sights = sights;
+	}
+
+	private class SuntimeMapGoogleV2Worker extends SuntimeSightsWorker {
     	
     	@Override
-    	protected void onPostExecute(SuntimeSightsCollection sights) {
-    		if(sights != null) {
+    	protected void onPostExecute(SuntimeSightsCollection response) {
+    		setSights(response);
+    		
+    		if(response != null) {
     			
-    			for(SuntimeSight s : sights.getSights()) {
+    			for(SuntimeSight s : response.getSights()) {
     				Log.i(TAG, s.toString());
     				gMap.addMarker(new MarkerOptions().position(new LatLng(s.getLat(), s.getLng())).title(s.getDescriptionShort()));
     			}

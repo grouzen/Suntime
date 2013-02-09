@@ -55,13 +55,14 @@ public class SightsMapGoogleActivity extends MapActivity {
 		@Override
 		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 			super.draw(canvas, mapView, shadow);
-			
+			/*
 			if(!shadow) {
 				Point point = new Point();
 				mapView.getProjection().toPixels(geoPoint, point);
 				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_marker);
 				canvas.drawBitmap(bitmap, point.x - bitmap.getWidth() / 2, point.y - bitmap.getHeight(), null);
 			}
+			*/
 		}
 		
 	}

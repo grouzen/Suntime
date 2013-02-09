@@ -5,10 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.maps.GeoPoint;
-
-import android.util.Log;
-
 public class SuntimeSight {
 	
 	private int id;
@@ -28,6 +24,7 @@ public class SuntimeSight {
 	public SuntimeSight(JSONObject json) throws JSONException {
 		id = json.getInt("id");
 		//coords = new GeoPoint((int) (json.getDouble("lat") * 1E6), (int) (json.getDouble("lng") * 1E6));
+		title = json.getString("title");
 		lat = json.getDouble("lat");
 		lng = json.getDouble("lng");
 		city = json.getString("city");
@@ -56,6 +53,13 @@ public class SuntimeSight {
 		return descriptionShort;
 	}
 	
+	public String getTitle() {
+		return title;
+	}
+	
+	public String getCity() {
+		return city;
+	}
 	
 	@Override
 	public String toString() {
