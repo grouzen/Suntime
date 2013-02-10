@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Log;
+
 public class SuntimeSight {
 	
 	private int id;
-	//private GeoPoint coords;
 	private double lat;
 	private double lng;
 	private String title;
@@ -23,18 +24,36 @@ public class SuntimeSight {
 	
 	public SuntimeSight(JSONObject json) throws JSONException {
 		id = json.getInt("id");
-		//coords = new GeoPoint((int) (json.getDouble("lat") * 1E6), (int) (json.getDouble("lng") * 1E6));
 		title = json.getString("title");
 		lat = json.getDouble("lat");
 		lng = json.getDouble("lng");
 		city = json.getString("city");
 		descriptionShort = json.getString("description_s");
-		//descriptionFull = json.getString("description_b"); Temporarily unavailable
+		//descriptionFull = json.getString("description_b"); not implemented in json api
 		address = json.getString("address");
 		rating = json.getInt("rating");
 		opinion = json.getInt("opinion");
-		
-		// TODO: create photos, categories
+		photos = normalizeJSONArray(json.getString("photos_name"));
+	}
+	
+	/*
+	 * Just normalize ugly array-like string that json api of Suntime returns.
+	 * Now array looks like "foo***bar***baz***" where "***" is a delimiter.
+	 */
+	private ArrayList<String> normalizeJSONArray(String arr) {
+	    String[] elems = arr.split("[\\*]{3}");
+	    ArrayList<String> normalized = new ArrayList<String>();
+	    Log.i("SuntimeSight", arr);
+        if(elems != null) {
+            for(String el : elems) {
+                if(!el.equals("")) {
+                    normalized.add(el);
+                    Log.i("SuntimeSightPoint", el);
+                }
+            }
+        }
+        
+        return normalized;
 	}
 	
 	public int getId() {
@@ -61,6 +80,10 @@ public class SuntimeSight {
 		return city;
 	}
 	
+	public ArrayList<String> getPhotos() {
+	    return photos;
+	}
+	 
 	@Override
 	public String toString() {
 		return "{ id: " + ((Integer) id).toString() +

@@ -14,7 +14,7 @@ public class SightsListByRatingAdapter extends SightsListAdapter {
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View view = super.getView(position, convertView, parent);
+	    View view = super.getView(position, convertView, parent);
 		
 		return view;
 	}

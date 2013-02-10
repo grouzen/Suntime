@@ -21,35 +21,6 @@ public class SuntimeApiSights extends SuntimeApi {
 		
 	}
 	
-	/*
-	private JSONArray parse(HttpResponse response) throws JSONException {
-		if(response != null) {
-			if(response.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-				try {
-					BufferedReader bf = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-					StringBuilder json = new StringBuilder();
-					String bfLine = "";
-					
-					while((bfLine = bf.readLine()) != null) {
-						json.append(bfLine).append('\n');
-					}
-					
-					return new JSONArray(json.toString());
-				} catch (IllegalStateException e) {
-					e.printStackTrace();
-					return null;
-				} catch (IOException e) {
-					e.printStackTrace();
-					return null;
-				}
-				
-			}
-		}
-		
-		return null;
-	}
-	*/
-	
 	public JSONArray read() throws JSONException {
 		ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
 		addKey(params).add(new BasicNameValuePair("method", "showsight"));

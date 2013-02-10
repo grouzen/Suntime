@@ -8,11 +8,11 @@ import android.content.Context;
 import android.view.Menu;
 
 public class SightsListByRatingActivity extends ListActivity {
-	
-	private SuntimeSightsCollection sights;
-	private final String TAG = "SightsListByRatingActivity";
-	private Context context;
-	
+    	
+    private SuntimeSightsCollection sights;
+    private final String TAG = "SightsListByRatingActivity";
+    private Context context;
+    	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,22 +30,22 @@ public class SightsListByRatingActivity extends ListActivity {
     public SuntimeSightsCollection getSights() {
 		return sights;
 	}
+    
+    public void setSights(SuntimeSightsCollection sights) {
+        this.sights = sights;
+    }
 
-	public void setSights(SuntimeSightsCollection sights) {
-		this.sights = sights;
-	}
-
-	private class SuntimeSightsListByRatingWorker extends SuntimeSightsWorker {
-    	@Override
-    	protected void onPostExecute(SuntimeSightsCollection response) {
-    		setSights(response);
-    		
-    		if(response != null) {
-    			SightsListByRatingAdapter adapter = new SightsListByRatingAdapter(context, response.getSights());
-    			setListAdapter(adapter);
-    			
-    		}
-    	}
+    private class SuntimeSightsListByRatingWorker extends SuntimeSightsWorker {
+        @Override
+        protected void onPostExecute(SuntimeSightsCollection response) {
+            setSights(response);
+            		
+            if(response != null) {
+                SightsListByRatingAdapter adapter = new SightsListByRatingAdapter(context, response.getSights());
+                setListAdapter(adapter);
+            			
+            }
+        }
     }
     
 }

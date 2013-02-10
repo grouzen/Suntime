@@ -62,7 +62,7 @@ public class SightsMapGoogleActivity extends MapActivity {
 				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_marker);
 				canvas.drawBitmap(bitmap, point.x - bitmap.getWidth() / 2, point.y - bitmap.getHeight(), null);
 			}
-			*/
+			 */
 		}
 		
 	}

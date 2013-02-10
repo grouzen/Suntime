@@ -73,7 +73,7 @@ public class SightsMapGoogleV2Activity extends FragmentActivity {
     	
     	@Override
     	protected void onPostExecute(SuntimeSightsCollection response) {
-    		setSights(response);
+    	    setSights(response);
     		
     		if(response != null) {
     			
