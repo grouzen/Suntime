@@ -1,5 +1,92 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="android:Theme.Light" />
-
+	
+    <style name="SightsListRootRowLayout" parent="@style/AppTheme">
+        <item name="android:layout_width">fill_parent</item>
+    	<item name="android:layout_height">wrap_content</item>
+    	<item name="android:orientation">horizontal</item>
+    	<item name="android:padding">30sp</item>
+    </style>
+    
+    <style name="SightsListPhotoRowLayout" parent="@style/AppTheme">
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:paddingLeft">15sp</item>
+        <item name="android:paddingRight">15sp</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    
+    <style name="SightsListContentRowLayout" parent="@style/AppTheme">
+        <item name="android:layout_width">0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">100</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    
+    <style name="SightsListCityOpinionRowLayout" parent="@style/AppTheme">
+         <item name="android:layout_width">fill_parent</item>
+         <item name="android:layout_height">30sp</item>
+         <item name="android:orientation">horizontal</item>
+    </style>
+    
+    <style name="SightsListOrder" parent="@style/AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    
+    <style name="SightsListPhoto" parent="@style/AppTheme">
+        <item name="android:layout_width">100sp</item>
+        <item name="android:layout_height">100sp</item>
+        <!--  
+        <item name="android:layout_marginLeft">4sp</item>
+        <item name="android:layout_marginRight">10sp</item>
+        <item name="android:layout_marginTop">4sp</item>
+        -->
+        <item name="android:src">@drawable/ic_launcher</item>
+    </style>
+    
+    <style name="SightsListRating" parent="@style/AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="SightsListTitle" parent="@style/AppTheme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">34sp</item>
+    </style>
+    
+    <style name="SightsListCity" parent="@style/AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    
+    <style name="SightsListOpinion" parent="@style/AppTheme">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#ff9933</item>
+        <item name="android:layout_marginLeft">10sp</item>
+    </style>
+    
+    <style name="SightsListCategories" parent="@style/AppTheme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#ff9933</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    
+    <style name="SightsListDescription" parent="@style/AppTheme">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">#999999</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+    
 </resources>

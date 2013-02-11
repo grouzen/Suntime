@@ -38,16 +38,39 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 		TextView descrShortView = (TextView) view.findViewById(R.id.description_s);
 		TextView cityView = (TextView) view.findViewById(R.id.city);
 		TextView titleView = (TextView) view.findViewById(R.id.title);
-		
+		TextView orderView = (TextView) view.findViewById(R.id.order);
+		TextView ratingView = (TextView) view.findViewById(R.id.rating);
+		TextView opinionView = (TextView) view.findViewById(R.id.opinion);
+		TextView categoriesView = (TextView) view.findViewById(R.id.categories);
+		        
 		photoView = (ImageView) view.findViewById(R.id.photo);
 		
 		if(!sight.getPhotos().isEmpty()) {
-		    new SuntimeSightsListAdapterWorker().execute(new PhotoLoader(sight.getId(), sight.getPhotos().get(0), PhotoLoader.SIZE_THUMB));
+		    new SuntimeSightsListAdapterWorker().
+		            execute(new PhotoLoader(sight.getId(), sight.getPhotos().get(0), PhotoLoader.SIZE_SMALL));
 		}
 		
 		descrShortView.setText(sight.getDescriptionShort());
 		cityView.setText(sight.getCity());
 		titleView.setText(sight.getTitle());
+		orderView.setText(String.valueOf(position + 1));
+		ratingView.setText(String.valueOf(sight.getRating()));
+		opinionView.setText(String.valueOf(sight.getOpinion()) + " отзывов");
+		
+		if(!sight.getCategories().isEmpty()) {
+		    StringBuilder text = new StringBuilder();
+		    ArrayList<SuntimeSightCategory> categories = sight.getCategories();
+		    
+		    for(int i = 0; i < categories.size(); i++) {
+		        text.append(categories.get(i).getTitle());
+		        
+		        if(i + 1 < categories.size()) {
+		            text.append(", ");
+		        }
+		    }
+		    
+		    categoriesView.setText(text);
+		}
 		
 		return view;
 	}

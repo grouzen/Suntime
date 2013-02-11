@@ -1,48 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/SightsListRootRowLayout"
+    tools:context=".SightsListByRatingAdapter" >
 
-    <ImageView
-        android:id="@+id/photo"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="4sp"
-        android:layout_marginRight="10sp"
-        android:layout_marginTop="4sp"
-        android:src="@drawable/ic_launcher" />
-    
-	<LinearLayout
-	   	android:layout_width="0dip"
-	   	android:layout_height="fill_parent"
-    	android:layout_weight="1"
-    	android:orientation="vertical" >
+    <TextView
+        android:id="@+id/order"
+        style="@style/SightsListOrder"
+        android:text="@+id/order" />
 
-		<TextView
-		    android:id="@+id/title"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="@+id/title"
-		    android:textSize="40sp" />
-	
-	    <TextView
-	        android:id="@+id/city"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@+id/city"
-	        android:textSize="16sp" >
-	    </TextView>
-	
-	    <TextView
-	        android:id="@+id/description_s"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:text="@+id/description_s"
-	        android:textSize="20sp" >
-	    </TextView>
+    <LinearLayout
+        style="@style/SightsListPhotoRowLayout" >
 
-	</LinearLayout>
+        <ImageView
+            android:id="@+id/photo"
+            style="@style/SightsListPhoto" />
+
+        <TextView
+            android:id="@+id/rating"
+            style="@style/SightsListRating"
+            android:text="@+id/rating" />
+    </LinearLayout>
+
+    <LinearLayout
+       style="@style/SightsListContentRowLayout" >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/SightsListTitle"
+            android:text="@+id/title" />
+		
+        <TextView
+            android:id="@+id/categories"
+            style="@style/SightsListCategories"
+            android:text="@string/sights_list_categories_none" />
+        
+        <LinearLayout
+           style="@style/SightsListCityOpinionRowLayout" >
+
+            <TextView
+                android:id="@+id/city"
+                style="@style/SightsListCity"
+                android:text="@+id/city" >
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/opinion"
+                style="@style/SightsListOpinion"
+                android:text="@+id/opinion" >
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description_s"
+            style="@style/SightsListDescription"
+            android:text="@+id/description_s" >
+        </TextView>
+    </LinearLayout>
+
 </LinearLayout>

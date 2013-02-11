@@ -34,6 +34,7 @@ public class SuntimeSight {
 		rating = json.getInt("rating");
 		opinion = json.getInt("opinion");
 		photos = normalizeJSONArray(json.getString("photos_name"));
+		categories = categoriesFromJSON(json.getString("cat_id"), json.getString("cat_title"));
 	}
 	
 	/*
@@ -43,17 +44,30 @@ public class SuntimeSight {
 	private ArrayList<String> normalizeJSONArray(String arr) {
 	    String[] elems = arr.split("[\\*]{3}");
 	    ArrayList<String> normalized = new ArrayList<String>();
-	    Log.i("SuntimeSight", arr);
-        if(elems != null) {
+	    
+	    if(elems != null) {
             for(String el : elems) {
                 if(!el.equals("")) {
                     normalized.add(el);
-                    Log.i("SuntimeSightPoint", el);
                 }
             }
         }
         
         return normalized;
+	}
+	
+	private ArrayList<SuntimeSightCategory> categoriesFromJSON(String ids, String titles) {
+	    ArrayList<SuntimeSightCategory> categories = new ArrayList<SuntimeSightCategory>();
+	    ArrayList<String> nids = normalizeJSONArray(ids);
+	    ArrayList<String> ntitles = normalizeJSONArray(titles);
+	    
+	    if(nids != null && ntitles != null && nids.size() == ntitles.size()) {
+	        for(int i = 0; i < nids.size(); i++) {
+	            categories.add(new SuntimeSightCategory(Integer.parseInt(nids.get(i)), ntitles.get(i)));
+	        }
+	    }
+	    
+	    return categories;
 	}
 	
 	public int getId() {
@@ -83,7 +97,19 @@ public class SuntimeSight {
 	public ArrayList<String> getPhotos() {
 	    return photos;
 	}
-	 
+	
+	public int getOpinion() {
+	    return opinion;
+	}
+	
+	public ArrayList<SuntimeSightCategory> getCategories() {
+	    return categories;
+	}
+	
+	public int getRating() {
+	    return rating;
+	}
+	
 	@Override
 	public String toString() {
 		return "{ id: " + ((Integer) id).toString() +

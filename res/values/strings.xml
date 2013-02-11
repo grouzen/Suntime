@@ -9,5 +9,6 @@
     <string name="title_activity_sights_grid">SightsGridActivity</string>
     <string name="title_activity_sights_map_google">SightsMapGoogleActivity</string>
     <string name="title_activity_sights_map_google_v2">Достопримечательности Крыма</string>
+    <string name="sights_list_categories_none">Категории отсутсвуют</string>
 
 </resources>
