@@ -2,12 +2,17 @@ package ua.com.suntime;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import com.actionbarsherlock.app.SherlockListActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
+
 import android.os.Bundle;
 import android.app.ListActivity;
 import android.content.Context;
-import android.view.Menu;
+//import android.view.Menu;
 
-public class SightsListByRatingActivity extends ListActivity {
+public class SightsListByRatingActivity extends SherlockListActivity {
     	
     private SuntimeSightsCollection sights;
     private final String TAG = "SightsListByRatingActivity";
@@ -23,7 +28,7 @@ public class SightsListByRatingActivity extends ListActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_sights_list_by_rating, menu);
+        getSupportMenuInflater().inflate(R.menu.activity_sights_list_by_rating, menu);
         return true;
     }
     
