@@ -2,10 +2,15 @@ package ua.com.suntime;
 
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-import android.view.Menu;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.app.SherlockFragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -15,12 +20,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class SightsMapGoogleV2Activity extends FragmentActivity {
+public class SightsMapGoogleV2Activity extends SherlockFragmentActivity {
 
 	private GoogleMap gMap;
 	private SuntimeSightsCollection sights;
 	
-	private final String TAG = "SightsMapGoogleV2Activity";
+	private static final String TAG = "SightsMapGoogleV2Activity";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +62,20 @@ public class SightsMapGoogleV2Activity extends FragmentActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_sights_map_google_v2, menu);
-		return true;
+		getSupportMenuInflater().inflate(R.menu.activity_sights_map_google_v2, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch(item.getItemId()) {
+	    case R.id.menu_rating:
+	        Intent intent = new Intent(this, SightsListByRatingActivity.class);
+	        startActivity(intent);
+	        return true;
+	    default:
+	        return super.onOptionsItemSelected(item);
+	    }
 	}
 
 	public SuntimeSightsCollection getSights() {
@@ -78,7 +95,6 @@ public class SightsMapGoogleV2Activity extends FragmentActivity {
     		if(response != null) {
     			
     			for(SuntimeSight s : response.getSights()) {
-    				Log.i(TAG, s.toString());
     				gMap.addMarker(new MarkerOptions().position(new LatLng(s.getLat(), s.getLng())).title(s.getDescriptionShort()));
     			}
     		}

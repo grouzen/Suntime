@@ -8,9 +8,9 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 
 import android.os.Bundle;
-import android.app.ListActivity;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.content.Context;
-//import android.view.Menu;
 
 public class SightsListByRatingActivity extends SherlockListActivity {
     	
@@ -21,8 +21,14 @@ public class SightsListByRatingActivity extends SherlockListActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.context = this;
+        setContentView(R.layout.activity_sights_list_by_rating);
         
+        ListView list = (ListView) findViewById(android.R.id.list);
+        RelativeLayout header = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.widget_sights_list_header, null);
+        
+        this.context = this;
+        //list.set
+        list.addHeaderView(header);        
         new SuntimeSightsListByRatingWorker().execute(new BasicNameValuePair("order", "rating_desc"));
     }
 

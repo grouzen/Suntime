@@ -6,6 +6,7 @@ import ua.com.suntime.http.PhotoLoader;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 	protected final Context context;
 	protected ArrayList<SuntimeSight> sights;
 	protected final int rowViewResourceId;
+	
+	private static final String TAG = "SightsListAdapter"; 
 	
 	protected ImageView photoView;
 	
@@ -34,6 +37,8 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 	    SuntimeSight sight = sights.get(position);
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View view = inflater.inflate(rowViewResourceId, parent, false);
+		
+		Log.i(TAG, "getView() " + position);
 		
 		TextView descrShortView = (TextView) view.findViewById(R.id.description_s);
 		TextView cityView = (TextView) view.findViewById(R.id.city);
