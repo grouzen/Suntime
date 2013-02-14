@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/SightsListHeaderLayout">
+    
+	<TextView
+	    android:id="@+id/widget_sights_list_header_title"
+	    android:text="@string/sights_list_header_by_rating_title"
+	   	style="@style/SightsListHeaderLayoutTitle" />
+	
+	<TextView
+	    android:id="@+id/widget_sights_list_header_subtitle"
+	    android:text="@string/sights_list_header_by_rating_subtitle"
+	 	style="@style/SightsListHeaderLayoutSubTitle" />
+	
+</RelativeLayout>

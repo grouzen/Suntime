@@ -22,12 +22,12 @@ public class SightsListByRatingActivity extends SherlockListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sights_list_by_rating);
+
+        this.context = this;
         
         ListView list = (ListView) findViewById(android.R.id.list);
         RelativeLayout header = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.widget_sights_list_header, null);
         
-        this.context = this;
-        //list.set
         list.addHeaderView(header);        
         new SuntimeSightsListByRatingWorker().execute(new BasicNameValuePair("order", "rating_desc"));
     }
