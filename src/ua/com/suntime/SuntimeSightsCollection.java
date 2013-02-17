@@ -9,6 +9,16 @@ public class SuntimeSightsCollection {
 	
 	private ArrayList<SuntimeSight> sights;
 	
+	public JSONArray toJSON() throws JSONException {
+	    JSONArray json = new JSONArray();
+	    
+	    for(SuntimeSight s : sights) {
+	        json.put(s.toJSON());
+	    }
+	    
+	    return json;
+	}
+	
 	public SuntimeSightsCollection(JSONArray json) {
 		sights = new ArrayList<SuntimeSight>();
 		

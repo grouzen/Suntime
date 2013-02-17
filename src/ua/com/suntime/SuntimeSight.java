@@ -51,8 +51,28 @@ public class SuntimeSight implements Serializable {
 		address = json.getString("address");
 		rating = json.getInt("rating");
 		opinion = json.getInt("opinion");
-		photos = normalizeJSONArray(json.getString("photos_name"));
+		photos = photosFromJSON(json.getString("photos_name"));
 		categories = categoriesFromJSON(json.getString("cat_id"), json.getString("cat_title"));
+	}
+	
+	public JSONObject toJSON() throws JSONException {
+	    JSONObject json = new JSONObject();
+	    
+	    json.put("id", id);
+	    json.put("title", title);
+	    json.put("lat", lat);
+	    json.put("lng", lng);
+	    json.put("city", city);
+	    json.put("description_s", descriptionShort);
+	    json.put("description_b", descriptionFull);
+	    json.put("address", address);
+	    json.put("rating", rating);
+	    json.put("opinion", opinion);
+	    json.put("photos_name", photosToString());
+	    json.put("cat_id", categoriesIdToString());
+	    json.put("cat_title", categoriesTitleToString());
+	    
+        return json;
 	}
 	
 	/*
@@ -74,6 +94,40 @@ public class SuntimeSight implements Serializable {
         return normalized;
 	}
 	
+	private String photosToString() {
+	    StringBuilder string = new StringBuilder();
+	    
+	    for(String p : photos) {
+	        string.append(p + "***");
+	    }
+	    
+	    return string.toString();
+	}
+	
+	private ArrayList<String> photosFromJSON(String photos) {
+	    return normalizeJSONArray(photos);
+	}
+	
+	private String categoriesIdToString() {
+	    StringBuilder string = new StringBuilder();
+	    
+	    for(SuntimeSightCategory c : categories) {
+	        string.append(c.getId() + "***");
+	    }
+	    
+	    return string.toString();
+	}
+	
+	private String categoriesTitleToString() {
+        StringBuilder string = new StringBuilder();
+        
+        for(SuntimeSightCategory c : categories) {
+            string.append(c.getTitle() + "***");
+        }
+        
+        return string.toString();
+    }
+    
 	private ArrayList<SuntimeSightCategory> categoriesFromJSON(String ids, String titles) {
 	    ArrayList<SuntimeSightCategory> categories = new ArrayList<SuntimeSightCategory>();
 	    ArrayList<String> nids = normalizeJSONArray(ids);
