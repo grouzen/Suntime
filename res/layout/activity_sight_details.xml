@@ -15,7 +15,8 @@
             android:layout_height="wrap_content"
             android:background="@color/gray" >
             
-            <Button 
+            <Button
+                android:id="@+id/button_favotites"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:drawable/btn_default"
@@ -54,6 +55,27 @@
 	    	    android:text="@+id/address" />
 	    	
 	    </LinearLayout>
+	    
+	    <!-- 
+	    	Without FrameLayout and view with transparent background
+	     	MapFragment blinked. Solution I found here http://stackoverflow.com/questions/13746351/mapfragment-in-scrollview
+	     -->
+	    <FrameLayout
+	        android:layout_width="match_parent"
+        	android:layout_height="100sp" >
+	    	
+		    <fragment 
+		        android:id="@+id/map_fragment"
+		        class="com.google.android.gms.maps.SupportMapFragment"
+		        android:layout_height="match_parent"
+		        android:layout_width="match_parent" />
+		    
+		    <View
+		        android:layout_width="match_parent"
+            	android:layout_height="match_parent"
+            	android:background="@android:color/transparent" />
+		    
+	    </FrameLayout>
 	    
 	    <HorizontalScrollView 
 	        android:id="@+id/scroller_photos_horizontal"

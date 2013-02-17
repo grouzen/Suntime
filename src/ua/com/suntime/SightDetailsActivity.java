@@ -2,26 +2,34 @@ package ua.com.suntime;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockFragmentActivity;
+import com.actionbarsherlock.view.Menu;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
 import ua.com.suntime.http.PhotoLoader;
 
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.view.Menu;
+//import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class SightDetailsActivity extends Activity {
+public class SightDetailsActivity extends SherlockFragmentActivity {
 
     private static final String TAG = "SightDetailActivity";
     
     private SuntimeSight sight;
     LinearLayout photosContainer;
     Context context;
+    GoogleMap gMap;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +77,15 @@ public class SightDetailsActivity extends Activity {
                new SuntimeSightDetailsWorker().execute(new PhotoLoader(sight.getId(), photo, PhotoLoader.SIZE_BIG));
             }
         }
+        
+        setupMapIfNeeded(savedInstanceState);
     }
      
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.activity_sight_details, menu);
-        return true;
+        getSupportMenuInflater().inflate(R.menu.activity_sight_details, menu);
+        return super.onCreateOptionsMenu(menu);
     }
     
     private class SuntimeSightDetailsWorker extends 
@@ -88,6 +98,25 @@ public class SightDetailsActivity extends Activity {
             image.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
             photosContainer.addView(image);
         }
-    } 
+    }
+    
+    
+    private void setupMapIfNeeded(Bundle savedInstanceState) {
+        if(gMap == null) {
+            gMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
+            
+            if(gMap != null) {
+                if (savedInstanceState == null) {
+                    CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(45.15, 34.4));
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo((float) 8.3);
+
+                    gMap.moveCamera(center);
+                    gMap.animateCamera(zoom);
+                }
+                
+            }
+        }
+    }
+    
     
 }
