@@ -8,9 +8,14 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.content.Context;
+import android.content.Intent;
 
 public class SightsListByRatingActivity extends SherlockListActivity {
     	
@@ -36,6 +41,14 @@ public class SightsListByRatingActivity extends SherlockListActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getSupportMenuInflater().inflate(R.menu.activity_sights_list_by_rating, menu);
         return true;
+    }
+    
+    @Override
+    protected void onListItemClick(ListView list, View view, int position, long id) {
+        Intent intent = new Intent(this, SightDetailsActivity.class);
+        
+        intent.putExtra("ua.com.suntime.SIGHT", sights.getSights().get(position - 1));
+        startActivity(intent);
     }
     
     public SuntimeSightsCollection getSights() {

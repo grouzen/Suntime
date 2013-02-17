@@ -1,8 +1,12 @@
 package ua.com.suntime;
 
-public class SuntimeSightCategory {
+import java.io.Serializable;
+
+public class SuntimeSightCategory implements Serializable {
 	
-	private int id;
+    private static final long serialVersionUID = 2038467079181831218L;
+    
+    private int id;
 	private String title;
 	
 	public SuntimeSightCategory(int id, String title) {

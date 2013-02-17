@@ -12,5 +12,6 @@
     <string name="sights_list_categories_none">Категории отсутсвуют</string>
     <string name="sights_list_header_by_rating_title">Рейтинг достопримечательностей Крыма</string>
     <string name="sights_list_header_by_rating_subtitle">Показаны 100 лучших объектов</string>
+    <string name="title_activity_sight_details">Достопримечательности</string>
 
 </resources>

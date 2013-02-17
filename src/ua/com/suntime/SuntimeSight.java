@@ -1,15 +1,16 @@
 package ua.com.suntime;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.util.Log;
-
-public class SuntimeSight {
+public class SuntimeSight implements Serializable {
 	
-	private int id;
+    private static final long serialVersionUID = 4459167065338265436L;
+    
+    private int id;
 	private double lat;
 	private double lng;
 	private String title;
@@ -22,6 +23,23 @@ public class SuntimeSight {
 	private ArrayList<String> photos;
 	private ArrayList<SuntimeSightCategory> categories;
 	
+	public SuntimeSight(int id, double lat, double lng, String title, String city,
+	        String descriptionShort, String descriptionFull, String address, int rating,
+	        int opinion, ArrayList<String> photos, ArrayList<SuntimeSightCategory> categories) {
+	    this.id = id;
+	    this.lat = lat;
+	    this.lng = lng;
+	    this.title = title;
+	    this.city = city;
+	    this.descriptionFull = descriptionFull;
+	    this.descriptionShort = descriptionShort;
+	    this.address = address;
+	    this.rating = rating;
+	    this.opinion = opinion;
+	    this.photos = photos;
+	    this.categories = categories;
+	}
+	
 	public SuntimeSight(JSONObject json) throws JSONException {
 		id = json.getInt("id");
 		title = json.getString("title");
@@ -29,7 +47,7 @@ public class SuntimeSight {
 		lng = json.getDouble("lng");
 		city = json.getString("city");
 		descriptionShort = json.getString("description_s");
-		//descriptionFull = json.getString("description_b"); not implemented in json api
+		descriptionFull = json.getString("description_b");
 		address = json.getString("address");
 		rating = json.getInt("rating");
 		opinion = json.getInt("opinion");
@@ -109,6 +127,14 @@ public class SuntimeSight {
 	public int getRating() {
 	    return rating;
 	}
+
+    public String getDescriptionFull() {
+        return descriptionFull;
+    }
+
+    public String getAddress() {
+        return address;
+    }
 	
 	@Override
 	public String toString() {
@@ -118,4 +144,5 @@ public class SuntimeSight {
 				", rating: " + ((Integer) rating).toString() +
 				" }";
 	}
+
 }

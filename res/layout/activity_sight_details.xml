@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scroller"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true" >
+	
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/gray" >
+            
+            <Button 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_default"
+                android:drawableLeft="@drawable/ic_launcher"
+                android:text="Хочу посетить"
+                android:gravity="left|center_vertical" />
+            
+        </RelativeLayout>
+        
+        
+	    <LinearLayout 
+	    		android:layout_width="fill_parent"
+	    		android:layout_height="wrap_content"
+	    		android:orientation="vertical"
+	    		android:background="@color/lightgray" >
+	    
+	    	<TextView 
+	    	    android:id="@+id/categories"
+	    	    style="@style/SightsListCategories"
+	    	    android:text="@+id/categories" />
+	    	
+	    	<TextView
+	    	    android:id="@+id/title"
+	    	    style="@style/SightsListTitle"
+	    	    android:text="@+id/title" />
+	    	
+	    	<TextView
+	    	    android:id="@+id/description_s"
+	    	    style="@style/SightsListDescription"
+	    	    android:text="@+id/description_s" />
+	    	
+	    	<TextView
+	    	    android:id="@+id/address"
+	    	    android:layout_width="fill_parent"
+	    	    android:layout_height="wrap_content"  	    
+	    	    android:text="@+id/address" />
+	    	
+	    </LinearLayout>
+	    
+	    <HorizontalScrollView 
+	        android:id="@+id/scroller_photos_horizontal"
+    		android:layout_width="fill_parent"
+    		android:layout_height="wrap_content" >
+	    	<LinearLayout 
+	    	    android:id="@+id/scroller_photos_layout"
+	    	    android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:orientation="horizontal" >
+	    	    
+	    	</LinearLayout>        
+	    </HorizontalScrollView>
+	        
+	    
+	    <TextView
+	        android:id="@+id/description_b"
+	        android:text="@+id/description_b"
+	        style="@style/SightDetailsDescriptionFull" />
+	    
+    </LinearLayout>
+</ScrollView>

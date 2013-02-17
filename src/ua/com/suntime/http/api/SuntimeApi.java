@@ -13,6 +13,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.util.Log;
+
 import ua.com.suntime.http.HttpConnection;
 
 public abstract class SuntimeApi extends HttpConnection {
@@ -35,7 +37,7 @@ public abstract class SuntimeApi extends HttpConnection {
 					while((bfLine = bf.readLine()) != null) {
 						json.append(bfLine).append('\n');
 					}
-					
+
 					return new JSONArray(json.toString());
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
