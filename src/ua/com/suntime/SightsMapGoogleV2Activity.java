@@ -68,9 +68,15 @@ public class SightsMapGoogleV2Activity extends SherlockFragmentActivity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+	    Intent intent;
+	    
 	    switch(item.getItemId()) {
 	    case R.id.menu_rating:
-	        Intent intent = new Intent(this, SightsListByRatingActivity.class);
+	        intent = new Intent(this, SightsListByRatingActivity.class);
+	        startActivity(intent);
+	        return true;
+	    case R.id.menu_favorites:
+	        intent = new Intent(this, SightsListFavoritesActivity.class);
 	        startActivity(intent);
 	        return true;
 	    default:

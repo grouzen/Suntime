@@ -61,21 +61,7 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 		orderView.setText(String.valueOf(position + 1));
 		ratingView.setText(String.valueOf(sight.getRating()));
 		opinionView.setText(String.valueOf(sight.getOpinion()) + " отзывов");
-		
-		if(!sight.getCategories().isEmpty()) {
-		    StringBuilder text = new StringBuilder();
-		    ArrayList<SuntimeSightCategory> categories = sight.getCategories();
-		    
-		    for(int i = 0; i < categories.size(); i++) {
-		        text.append(categories.get(i).getTitle());
-		        
-		        if(i + 1 < categories.size()) {
-		            text.append(", ");
-		        }
-		    }
-		    
-		    categoriesView.setText(text);
-		}
+		categoriesView.setText(SuntimeUtils.categoriesToString(sight.getCategories()));
 		
 		return view;
 	}

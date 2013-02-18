@@ -8,11 +8,12 @@ import android.content.SharedPreferences;
 
 public class SuntimeFavoriteSightsCollection extends SuntimeSightsCollection {
 
-    Context context;
+    private Context context;
     private static final String PREFNAME = "sights";
     
     public SuntimeFavoriteSightsCollection(Context context) throws JSONException {
         super(load(context));
+        this.context = context;
     }
 
 
@@ -23,8 +24,7 @@ public class SuntimeFavoriteSightsCollection extends SuntimeSightsCollection {
     }
     
     public void save() throws JSONException {
-        SharedPreferences.Editor editor = this.context.getSharedPreferences(PREFNAME, Context.MODE_PRIVATE).edit();
-        JSONArray json = new JSONArray();
+        SharedPreferences.Editor editor = context.getSharedPreferences(PREFNAME, Context.MODE_PRIVATE).edit();
         editor.putString(PREFNAME, toJSON().toString());
         editor.commit();
     }

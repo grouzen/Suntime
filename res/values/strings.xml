@@ -14,5 +14,6 @@
     <string name="sights_list_header_by_rating_subtitle">Показаны 100 лучших объектов</string>
     <string name="title_activity_sight_details">Достопримечательности</string>
     <string name="title_activity_sight_details_map_fragment">Достопримечательности</string>
+    <string name="title_activity_sights_list_favorites">Достопримечательности</string>
 
 </resources>

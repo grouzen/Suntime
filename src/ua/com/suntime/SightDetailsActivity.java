@@ -2,6 +2,8 @@ package ua.com.suntime;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
 import com.google.android.gms.maps.CameraUpdate;
@@ -17,7 +19,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.util.Log;
-//import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -38,35 +42,25 @@ public class SightDetailsActivity extends SherlockFragmentActivity {
         
         Intent intent = getIntent();
         this.sight = (SuntimeSight) intent.getSerializableExtra("ua.com.suntime.SIGHT");
-        /*
-        ArrayList<SuntimeSightCategory> cats = new ArrayList<SuntimeSightCategory>();
-        ArrayList<String> photos = new ArrayList<String>();
-        photos.add("33382511511.jpg");
-        photos.add("51920258530.jpg");
-        cats.add(new SuntimeSightCategory(122, "Горы"));
         
-        this.sight = new SuntimeSight(2416, 37.0001, 35.0000, "Тестовый объект",
-                "Тестовый город", "Тестовое короткое описание", "Тестовое длинное описание",
-                "за маяком", 12, 5, photos, cats);
-                
-        */
         this.context = this;
         this.photosContainer = (LinearLayout) this.findViewById(R.id.scroller_photos_layout);
         
-        if(!sight.getCategories().isEmpty()) {
-            StringBuilder text = new StringBuilder();
-            ArrayList<SuntimeSightCategory> categories = sight.getCategories();
-            
-            for(int i = 0; i < categories.size(); i++) {
-                text.append(categories.get(i).getTitle());
-                
-                if(i + 1 < categories.size()) {
-                    text.append(", ");
+        Button button_favorites = (Button) this.findViewById(R.id.button_favotites);
+        button_favorites.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                try {
+                    SuntimeFavoriteSightsCollection f = new SuntimeFavoriteSightsCollection(context);
+                    Log.i(TAG, String.valueOf(f.getSights().size()));
+                    f.getSights().add(sight);
+                    f.save();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
             }
-            
-            ((TextView) this.findViewById(R.id.categories)).setText(text);
-        }
+        });
+        
+        ((TextView) this.findViewById(R.id.categories)).setText(SuntimeUtils.categoriesToString(sight.getCategories()));
         ((TextView) this.findViewById(R.id.title)).setText(sight.getTitle());
         ((TextView) this.findViewById(R.id.description_s)).setText(sight.getDescriptionShort());
         ((TextView) this.findViewById(R.id.address)).setText(sight.getAddress());
@@ -89,7 +83,7 @@ public class SightDetailsActivity extends SherlockFragmentActivity {
     }
     
     private class SuntimeSightDetailsWorker extends 
-        SuntimePhotosWorker {
+                                    SuntimePhotosWorker {
         
         @Override
         protected void onPostExecute(Bitmap bitmap) {
