@@ -9,8 +9,8 @@ import android.widget.TextView;
 
 public class SightsListByRatingAdapter extends SightsListAdapter {
 
-	public SightsListByRatingAdapter(Context context, ArrayList<SuntimeSight> sights) {
-		super(context, R.layout.adapter_sights_list_by_rating , sights);
+	public SightsListByRatingAdapter(Context context, ArrayList<SuntimeSight> sights, SuntimePhotosCache photos) {
+		super(context, R.layout.adapter_sights_list_by_rating , sights, photos);
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {

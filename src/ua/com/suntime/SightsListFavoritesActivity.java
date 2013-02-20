@@ -9,14 +9,17 @@ import com.actionbarsherlock.view.MenuItem;
 import android.os.Bundle;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.v4.util.LruCache;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 public class SightsListFavoritesActivity extends SherlockListActivity {
 
     private SuntimeFavoriteSightsCollection sights;
     private Context context;
+
+    private SuntimePhotosCache photosCache;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,15 +27,11 @@ public class SightsListFavoritesActivity extends SherlockListActivity {
         setContentView(R.layout.activity_sights_list_favorites);
         
         this.context = this;
-        
-        ListView list = (ListView) findViewById(android.R.id.list);
-        // TODO: remove widget
-        RelativeLayout header = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.widget_sights_list_header, null);
-        list.addHeaderView(header);
+        this.photosCache = new SuntimePhotosCache();
         
         try {
             sights = new SuntimeFavoriteSightsCollection(context);
-            SightsListFavoritesAdapter adapter = new SightsListFavoritesAdapter(context, sights.getSights());
+            SightsListFavoritesAdapter adapter = new SightsListFavoritesAdapter(context, sights.getSights(), photosCache);
             setListAdapter(adapter);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -50,7 +49,7 @@ public class SightsListFavoritesActivity extends SherlockListActivity {
     protected void onListItemClick(ListView list, View view, int position, long id) {
         Intent intent = new Intent(this, SightDetailsActivity.class);
         
-        intent.putExtra("ua.com.suntime.SIGHT", sights.getSights().get(position - 1));
+        intent.putExtra("ua.com.suntime.SIGHT", sights.getSights().get(position));
         startActivity(intent);
     }
     
@@ -60,7 +59,7 @@ public class SightsListFavoritesActivity extends SherlockListActivity {
         
         switch(item.getItemId()) {
         case R.id.menu_rating:
-            intent = new Intent(this, SightsListFavoritesActivity.class);
+            intent = new Intent(this, SightsListByRatingActivity.class);
             startActivity(intent);
             return true;
         default:

@@ -8,6 +8,7 @@ import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.MenuInflater;
 
 import android.os.Bundle;
+import android.support.v4.util.LruCache;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,13 +17,17 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 
 public class SightsListByRatingActivity extends SherlockListActivity {
     	
-    private SuntimeSightsCollection sights;
+    private SuntimeSightsCollection sights = null;
     private final String TAG = "SightsListByRatingActivity";
     private Context context;
-    	
+
+    private SuntimePhotosCache photosCache;
+    
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +35,11 @@ public class SightsListByRatingActivity extends SherlockListActivity {
 
         this.context = this;
         
-        ListView list = (ListView) findViewById(android.R.id.list);
-        RelativeLayout header = (RelativeLayout) this.getLayoutInflater().inflate(R.layout.widget_sights_list_header, null);
+        this.photosCache = new SuntimePhotosCache();
         
-        list.addHeaderView(header);        
-        new SuntimeSightsListByRatingWorker().execute(new BasicNameValuePair("order", "rating_desc"));
+        if(this.sights == null) {    
+            new SuntimeSightsListByRatingWorker().execute(new BasicNameValuePair("order", "rating_desc"));
+        }
     }
 
     @Override
@@ -47,8 +52,22 @@ public class SightsListByRatingActivity extends SherlockListActivity {
     protected void onListItemClick(ListView list, View view, int position, long id) {
         Intent intent = new Intent(this, SightDetailsActivity.class);
         
-        intent.putExtra("ua.com.suntime.SIGHT", sights.getSights().get(position - 1));
+        intent.putExtra("ua.com.suntime.SIGHT", sights.getSights().get(position));
         startActivity(intent);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        
+        switch(item.getItemId()) {
+        case R.id.menu_favorites:
+            intent = new Intent(this, SightsListFavoritesActivity.class);
+            startActivity(intent);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
     }
     
     public SuntimeSightsCollection getSights() {
@@ -65,7 +84,7 @@ public class SightsListByRatingActivity extends SherlockListActivity {
             setSights(response);
             		
             if(response != null) {
-                SightsListByRatingAdapter adapter = new SightsListByRatingAdapter(context, response.getSights());
+                SightsListByRatingAdapter adapter = new SightsListByRatingAdapter(context, response.getSights(), photosCache);
                 setListAdapter(adapter);
             			
             }

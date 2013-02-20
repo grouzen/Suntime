@@ -32,6 +32,11 @@
         <activity
             android:name="ua.com.suntime.SightsListByRatingActivity"
             android:label="@string/title_activity_sights_list" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             
         </activity>
         <activity
@@ -46,11 +51,6 @@
         <activity
             android:name="ua.com.suntime.SightsMapGoogleV2Activity"
             android:label="@string/title_activity_sights_map_google_v2" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name="ua.com.suntime.SightDetailsActivity"

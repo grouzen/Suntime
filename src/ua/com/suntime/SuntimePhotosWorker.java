@@ -5,11 +5,12 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
 public class SuntimePhotosWorker extends
-        AsyncTask<PhotoLoader, Void, Bitmap> {
+        AsyncTask<PhotoLoader, Void, PhotoLoader> {
 
     @Override
-    protected Bitmap doInBackground(PhotoLoader... loaders) {
-        return loaders[0].download();
+    protected PhotoLoader doInBackground(PhotoLoader... loaders) {
+        loaders[0].download();
+        return loaders[0];
     }
 
 }

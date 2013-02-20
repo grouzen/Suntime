@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import ua.com.suntime.http.PhotoLoader;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,49 +18,75 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 	protected final Context context;
 	protected ArrayList<SuntimeSight> sights;
 	protected final int rowViewResourceId;
+	private SuntimePhotosCache photosCache;
 	
 	private static final String TAG = "SightsListAdapter"; 
 	
-	protected ImageView photoView;
+	/*
+	 * ViewHolder pattern for speed optimizations by Android Google Team.
+	 */
+	static class ViewHolder {
+	    TextView descrShortView;
+	    TextView cityView;
+	    TextView titleView;
+	    TextView orderView;
+	    TextView ratingView;
+	    TextView opinionView;
+	    TextView categoriesView;
+	    ImageView photoView;
+	}
 	
-	public SightsListAdapter(Context context, int rowViewResourceId, ArrayList<SuntimeSight> sights) {
+	public SightsListAdapter(Context context, int rowViewResourceId, ArrayList<SuntimeSight> sights, SuntimePhotosCache photosCache) {
 		super(context, rowViewResourceId, sights);
 		
 		this.context = context;
 		this.sights = sights;
+		this.photosCache = photosCache;
 		this.rowViewResourceId = rowViewResourceId;
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(int position, View view, ViewGroup parent) {
+	    ViewHolder holder;
 	    SuntimeSight sight = sights.get(position);
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View view = inflater.inflate(rowViewResourceId, parent, false);
+		String cacheKey = SuntimePhotosCache.getKey(sight.getId(), sight.getPhotos().get(0));
 		
-		Log.i(TAG, "getView() " + position);
-		
-		TextView descrShortView = (TextView) view.findViewById(R.id.description_s);
-		TextView cityView = (TextView) view.findViewById(R.id.city);
-		TextView titleView = (TextView) view.findViewById(R.id.title);
-		TextView orderView = (TextView) view.findViewById(R.id.order);
-		TextView ratingView = (TextView) view.findViewById(R.id.rating);
-		TextView opinionView = (TextView) view.findViewById(R.id.opinion);
-		TextView categoriesView = (TextView) view.findViewById(R.id.categories);
-		        
-		photoView = (ImageView) view.findViewById(R.id.photo);
-		
-		if(!sight.getPhotos().isEmpty()) {
-		    new SuntimeSightsListAdapterWorker().
-		            execute(new PhotoLoader(sight.getId(), sight.getPhotos().get(0), PhotoLoader.SIZE_SMALL));
+		if(view == null) {
+		    view = inflater.inflate(rowViewResourceId, parent, false);
+		    
+		    holder = new ViewHolder();
+		    holder.descrShortView = (TextView) view.findViewById(R.id.description_s);
+	        holder.cityView = (TextView) view.findViewById(R.id.city);
+	        holder.titleView = (TextView) view.findViewById(R.id.title);
+	        holder.orderView = (TextView) view.findViewById(R.id.order);
+	        holder.ratingView = (TextView) view.findViewById(R.id.rating);
+	        holder.opinionView = (TextView) view.findViewById(R.id.opinion);
+	        holder.categoriesView = (TextView) view.findViewById(R.id.categories);
+	        holder.photoView = (ImageView) view.findViewById(R.id.photo);
+	        
+	        view.setTag(holder);
+		} else {
+		    holder = (ViewHolder) view.getTag();
 		}
 		
-		descrShortView.setText(sight.getDescriptionShort());
-		cityView.setText(sight.getCity());
-		titleView.setText(sight.getTitle());
-		orderView.setText(String.valueOf(position + 1));
-		ratingView.setText(String.valueOf(sight.getRating()));
-		opinionView.setText(String.valueOf(sight.getOpinion()) + " отзывов");
-		categoriesView.setText(SuntimeUtils.categoriesToString(sight.getCategories()));
+		if(!sight.getPhotos().isEmpty()) {
+		    if(photosCache.getPhotoFromCache(cacheKey) == null) {
+		        holder.photoView.setImageResource(R.drawable.ic_launcher); // TODO: change to dumb picture
+		         new SuntimeSightsListAdapterWorker().
+		                execute(new PhotoLoader(sight.getId(), sight.getPhotos().get(0), holder.photoView, PhotoLoader.SIZE_SMALL));
+		    } else {
+		        holder.photoView.setImageBitmap(photosCache.getPhotoFromCache(cacheKey));
+		    }
+		}
+		
+		holder.descrShortView.setText(sight.getDescriptionShort());
+		holder.cityView.setText(sight.getCity());
+		holder.titleView.setText(sight.getTitle());
+		holder.orderView.setText(String.valueOf(position + 1));
+		holder.ratingView.setText(String.valueOf(sight.getRating()));
+		holder.opinionView.setText(String.valueOf(sight.getOpinion()) + " отзывов");
+		holder.categoriesView.setText(SuntimeUtils.categoriesToString(sight.getCategories()));
 		
 		return view;
 	}
@@ -70,8 +95,9 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 	                    SuntimePhotosWorker {
 	       
 	    @Override
-        protected void onPostExecute(Bitmap bitmap) {
-	        photoView.setImageBitmap(bitmap);
+        protected void onPostExecute(PhotoLoader loader) {
+	        loader.applyPhoto();
+	        photosCache.addPhotoToCache(SuntimePhotosCache.getKey(loader.sightId, loader.photoName), loader.bitmap);
         } 
 	}
 

@@ -68,7 +68,11 @@ public class SightDetailsActivity extends SherlockFragmentActivity {
         
         if(sight.getPhotos().size() > 0) {
             for(String photo : sight.getPhotos()) {
-               new SuntimeSightDetailsWorker().execute(new PhotoLoader(sight.getId(), photo, PhotoLoader.SIZE_BIG));
+                ImageView photoView = new ImageView(context);
+                photoView.setLayoutParams(new LinearLayout.LayoutParams(150, 150));
+                photosContainer.addView(photoView);
+                
+                new SuntimeSightDetailsWorker().execute(new PhotoLoader(sight.getId(), photo, photoView, PhotoLoader.SIZE_BIG));
             }
         }
         
@@ -86,11 +90,8 @@ public class SightDetailsActivity extends SherlockFragmentActivity {
                                     SuntimePhotosWorker {
         
         @Override
-        protected void onPostExecute(Bitmap bitmap) {
-            ImageView image = new ImageView(context);
-            image.setImageBitmap(bitmap);
-            image.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
-            photosContainer.addView(image);
+        protected void onPostExecute(PhotoLoader loader) {
+            loader.applyPhoto();
         }
     }
     
