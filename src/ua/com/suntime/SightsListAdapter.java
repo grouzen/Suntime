@@ -57,15 +57,15 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 		    
 		    holder = new ViewHolder();
 		    holder.descrShortView = (TextView) view.findViewById(R.id.description_s);
-	        holder.cityView = (TextView) view.findViewById(R.id.city);
-	        holder.titleView = (TextView) view.findViewById(R.id.title);
-	        holder.orderView = (TextView) view.findViewById(R.id.order);
-	        holder.ratingView = (TextView) view.findViewById(R.id.rating);
-	        holder.opinionView = (TextView) view.findViewById(R.id.opinion);
-	        holder.categoriesView = (TextView) view.findViewById(R.id.categories);
-	        holder.photoView = (ImageView) view.findViewById(R.id.photo);
+		    holder.cityView = (TextView) view.findViewById(R.id.city);
+		    holder.titleView = (TextView) view.findViewById(R.id.title);
+		    holder.orderView = (TextView) view.findViewById(R.id.order);
+		    holder.ratingView = (TextView) view.findViewById(R.id.rating);
+		    holder.opinionView = (TextView) view.findViewById(R.id.opinion);
+		    holder.categoriesView = (TextView) view.findViewById(R.id.categories);
+		    holder.photoView = (ImageView) view.findViewById(R.id.photo);
 	        
-	        view.setTag(holder);
+		    view.setTag(holder);
 		} else {
 		    holder = (ViewHolder) view.getTag();
 		}
@@ -73,7 +73,7 @@ public class SightsListAdapter extends ArrayAdapter<SuntimeSight> {
 		if(!sight.getPhotos().isEmpty()) {
 		    if(photosCache.getPhotoFromCache(cacheKey) == null) {
 		        holder.photoView.setImageResource(R.drawable.ic_launcher); // TODO: change to dumb picture
-		         new SuntimeSightsListAdapterWorker().
+		        new SuntimeSightsListAdapterWorker().
 		                execute(new PhotoLoader(sight.getId(), sight.getPhotos().get(0), holder.photoView, PhotoLoader.SIZE_SMALL));
 		    } else {
 		        holder.photoView.setImageBitmap(photosCache.getPhotoFromCache(cacheKey));

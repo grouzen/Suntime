@@ -6,6 +6,7 @@ import org.json.JSONException;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -86,6 +87,24 @@ public class SightDetailsActivity extends SherlockFragmentActivity {
         return super.onCreateOptionsMenu(menu);
     }
     
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        
+        switch(item.getItemId()) {
+        case R.id.menu_favorites:
+            intent = new Intent(this, SightsListFavoritesActivity.class);
+            startActivity(intent);
+            return true;
+        case R.id.menu_rating:
+            intent = new Intent(this, SightsListByRatingActivity.class);
+            startActivity(intent);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
     private class SuntimeSightDetailsWorker extends 
                                     SuntimePhotosWorker {
         

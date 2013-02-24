@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/MapInfoWindowRootLayout">
+
+    <LinearLayout
+        style="@style/SightsListPhotoRowLayout" >
+
+        <ImageView
+            android:id="@+id/photo"
+            style="@style/SightsListPhoto" />
+
+        <TextView
+            android:id="@+id/rating"
+            style="@style/SightsListRating"
+            android:text="@+id/rating" />
+    </LinearLayout>
+
+    <LinearLayout
+       style="@style/SightsListContentRowLayout" >
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/SightsListTitle"
+            android:text="@+id/title" />
+		
+        <LinearLayout
+           style="@style/SightsListCityOpinionRowLayout" >
+
+            <TextView
+                android:id="@+id/city"
+                style="@style/SightsListCity"
+                android:text="@+id/city" >
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/opinion"
+                style="@style/SightsListOpinion"
+                android:text="@+id/opinion" >
+            </TextView>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description_s"
+            style="@style/SightsListDescription"
+            android:text="@+id/description_s" >
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>
